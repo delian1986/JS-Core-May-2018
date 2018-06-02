@@ -1,18 +1,12 @@
 function airPollution(matrix, forces) {
     let field = [];
-    let poluted = [];
 
     for (let i = 0; i < matrix.length; i++) {
         let arr = matrix[i].split(/\W+/).map(Number);
 
         field.push(arr); //Populating field.
 
-        //Search for polutions.
-        for (let j = 0; j < arr.length; j++) {
-            if (arr[j] >= 50) {
-                poluted.push([i, j]);
-            }
-        }
+
     }
 
     //console.log(poluted);
@@ -22,81 +16,54 @@ function airPollution(matrix, forces) {
     for (let arg of forces) {
         let args = arg.split(/\W+/);
         let command = args[0];
-        let power = parseInt(args[1]);
+        let power = Number(args[1]);
 
 
-        switch (command) {
-            case 'breeze': {
-                for (let i = 0; i < field.length; i++) {
-
-                    //let currPosition = field[power][i];
-                    field[power][i] -= 15;
-                    let currPos = [];
-                    currPos.push(power, i);
-
-
-                    for (let row of poluted) {
-                        if (JSON.stringify(currPos) === JSON.stringify(row)) {
-                            //console.log('done');
-                            if (field[power][i] < 0) {
-                                field[power][i] = 0;
-                            }
-                        }
-                    }
-
+        if (command.toLowerCase() === 'breeze' && power >= 0 && power < field.length) {
+            for (let j = 0; j < field[power].length; j++) {
+                field[power][j] -= 15;
+                if (field[power][j] < 0) {
+                    field[power][j] = 0;
                 }
-                console.log(field);
-                break;
             }
-            case 'gale': {
-                for (let i = 0; i < field.length; i++) {
-
-                    //let currPosition = field[power][i];
+        } else if (command.toLowerCase() === 'gale') {
+            for (let i = 0; i < field.length; i++) {
+                if (power >= 0 && power < field[i].length) {
                     field[i][power] -= 20;
-                    let currPos = [];
-                    currPos.push(i, power);
-
-
-                    for (let row of poluted) {
-                        if (JSON.stringify(currPos) === JSON.stringify(row)) {
-                            //console.log('done');
-                            if (field[i][power] < 0) {
-                                field[i][power] = 0;
-                            }
-                        }
+                    if (field[i][power] < 0) {
+                        field[i][power] = 0;
                     }
-
                 }
-                console.log(field);
-                break;
             }
-            case 'smog':
-                for (let row = 0; row < field.length; row++) {
-                    for (let col = 0; col < field[row].length; col++) {
-                        field[row][col] += power;
-                        if (field[row][col] >= 50) {
-                            let currPos = [];
-                            currPos.push(row, col);
-
-                            for (let currRow of poluted) {
-                                if (JSON.stringify(currPos) === JSON.stringify(currRow)) {
-                                    //console.log('done');
-                                    continue;
-                                }
-                                    poluted.push([row, col]);
-                                    console.log(row,col);
-                            }
-                        }
-                    }
+        } else if (command.toLowerCase() === 'smog') {
+            for (let i = 0; i < field.length; i++) {
+                for (let j = 0; j < field[i].length; j++) {
+                    field[i][j] += power;
                 }
-                console.log(field);
-                break;
+            }
         }
     }
 
-    console.log(poluted.filter());
+    //Search for polutions.
+    let poluted = [];
 
-// console.log(field);
+    for (let j = 0; j < field.length; j++) {
+        for (let i = 0; i < field[j].length; i++) {
+            if (field[j][i] >= 50) {
+                poluted.push(`[${j}-${i}]`);
+            }
+
+        }
+
+    }
+
+
+    if (poluted.length>0){
+        console.log(`Polluted areas: ${poluted.join(', ')}`);
+
+    }else{
+        console.log('No polluted areas');
+    }
 
 
 }
