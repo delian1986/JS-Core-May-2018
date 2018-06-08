@@ -25,23 +25,36 @@ function gladiatorInventory(items) {
                 }
             } else if (args[0] === 'Upgrade') {
                 for (let j = 1; j < args.length; j++) {
-                    let updrade = args[j].split('-');
-                    if (inventory.has(updrade[0])){
-                        
+                    let upgrade = args[j].split('-');
+                    if (inventory.has(upgrade[0])){
+                        let arrayInv=[...inventory];
+                        for (let k = 0; k < arrayInv.length; k++) {
+                            if (arrayInv[k]===upgrade[0]){
+                                let upgraded=`${upgrade[0]}:${upgrade[1]}`;
+                                arrayInv.splice(k+1,0,upgraded);
+                            }
+
+                        }
+
+
+                        inventory=new Set(arrayInv);
                     }
                 }
+            }else if(args[0] === 'Fight!'){
+                break;
             }
 
         }
 
     }
-        console.log(inventory);
+        let readyToPrint=[...inventory];
+        console.log(readyToPrint.join(' '));
 }
 
 gladiatorInventory(['Spear SWORD Shield' ,
 'Buy       Bag' ,
 'Trash Shield' ,
 'Repair Spear' ,
-'Upgrade SWORD-Steel' ,
+'Upgrade Spear-Steel' ,
 'Fight!']);
 
