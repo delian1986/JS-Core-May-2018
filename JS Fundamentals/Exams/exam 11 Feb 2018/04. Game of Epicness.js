@@ -1,10 +1,98 @@
-function gameOfEpicness(army,battle) {
+function gameOfEpicness(kingdoms,battles) {
+    //Object where I store the armies.
+    let armies={};
 
-    let armies=new Map();
+    //Populating object
+    for (let kingdom of kingdoms) {
+        if (!armies.hasOwnProperty(kingdom.kingdom)){
+            armies[kingdom.kingdom]={};
 
-    for (let i = 0; i < army.length; i++) {
+        }
+        if (!armies[kingdom.kingdom].hasOwnProperty(kingdom.general)){
+            armies[kingdom.kingdom]['kingdomWins']=0;
+            armies[kingdom.kingdom]['kingdomLoses']=0;
+            armies[kingdom.kingdom][kingdom.general]={};
+            armies[kingdom.kingdom][kingdom.general]['army']=0;
+        }
 
+        armies[kingdom.kingdom][kingdom.general]['army']+=Number(Math.floor(kingdom.army));
+        armies[kingdom.kingdom][kingdom.general]['wins']=0;
+        armies[kingdom.kingdom][kingdom.general]['loses']=0;
     }
+
+    //Battles
+    for (let battle of battles) {
+        for (let i = 0; i < battle.length; i+=4) {
+            let attackerKingdom=battle[i];
+            let attackerGeneral=battle[i+1];
+            let defenderKingdom=battle[i+2];
+            let defenderGeneral=battle[i+3];
+
+            if (attackerKingdom===defenderKingdom){
+                continue;
+            }else{
+                if (armies.hasOwnProperty(attackerKingdom)&&armies.hasOwnProperty(defenderKingdom)){
+                    let attackerGeneralArmy=armies[attackerKingdom][attackerGeneral]['army'];
+                    let attackerGeneralWins=armies[attackerKingdom][attackerGeneral]['wins'];
+                    let attackerGeneralLoses=armies[attackerKingdom][attackerGeneral]['loses'];
+
+                    let defenderGeneralArmy=armies[defenderKingdom][defenderGeneral]['army'];
+                    let defenderGeneralWins=armies[defenderKingdom][defenderGeneral]['wins'];
+                    let defenderGeneralLoses=armies[defenderKingdom][defenderGeneral]['loses'];
+
+                    // console.log(armies);
+                    if (attackerGeneralArmy>defenderGeneralArmy){
+                        armies[attackerKingdom]['kingdomWins']++;
+                        armies[defenderKingdom]['kingdomLoses']++;
+                        attackerGeneralArmy=Math.floor(attackerGeneralArmy*1.1);
+                        defenderGeneralArmy=Math.floor(defenderGeneralArmy*0.9);
+                        attackerGeneralWins++;
+                        defenderGeneralLoses++;
+                    }else if (attackerGeneralArmy<defenderGeneralArmy){
+                        armies[defenderKingdom]['kingdomWins']++;
+                        armies[attackerKingdom]['kingdomLoses']++;
+                        attackerGeneralArmy=Math.floor(attackerGeneralArmy*0.9);
+                        defenderGeneralArmy=Math.floor(defenderGeneralArmy*1.1);
+                        attackerGeneralLoses++;
+                        defenderGeneralWins++;
+                    }
+
+                    armies[attackerKingdom][attackerGeneral]['army']=attackerGeneralArmy;
+                    armies[attackerKingdom][attackerGeneral]['wins']=attackerGeneralWins;
+                    armies[attackerKingdom][attackerGeneral]['loses']=attackerGeneralLoses;
+
+                    armies[defenderKingdom][defenderGeneral]['army']=defenderGeneralArmy;
+                    armies[defenderKingdom][defenderGeneral]['wins']=defenderGeneralWins;
+                    armies[defenderKingdom][defenderGeneral]['loses']=defenderGeneralLoses;
+                }
+            }
+        }
+    }
+
+    //Sorting kingdoms by total wins descending then by total loses ascending and finally by name alphabetically.
+    let sortedKingdoms=Object.keys(armies).sort((k1,k2)=>{
+        let diffInWins=armies[k2]['kingdomWins']-armies[k1]['kingdomWins'];
+        if (diffInWins===0){
+            let diffInLoses=armies[k1]['kingdomLoses']-armies[k2]['kingdomLoses'];
+            if (diffInLoses===0){
+                return k1.localeCompare(k2);
+            }
+            return diffInLoses;
+        }
+        return diffInWins;
+    });
+
+    console.log(`Winner: ${sortedKingdoms[0]}`);
+    for (let kingdom in armies[sortedKingdoms[0]]) {
+        let sortedGenerals=Object.keys(armies[sortedKingdoms[0]]).filter(i=>i!=='kingdomWins'&& i!=='kingdomLoses').sort((g1,s2)=>{
+            
+        });
+        console.log(sortedGenerals);
+        // console.log(armies[sortedKingdoms[0]]);
+    }
+    // console.log('-'.repeat(10));
+    // console.log(armies);
+    // //console.log(armies);
 }
 
 gameOfEpicness([ { kingdom: "Maiden Way", general: "Merek", army: 5000 },
@@ -18,4 +106,16 @@ gameOfEpicness([ { kingdom: "Maiden Way", general: "Merek", army: 5000 },
         ["Stonegate", "Doran", "Maiden Way", "Merek"],
         ["Stonegate", "Ulric", "Maiden Way", "Merek"],
         ["Maiden Way", "Berinon", "Stonegate", "Ulric"] ]
+
 );
+
+// console.log('-------------------');
+//
+// gameOfEpicness([ { kingdom: "Maiden Way", general: "Merek", army: 5000 },
+//         { kingdom: "Stonegate", general: "Ulric", army: 4900 },
+//         { kingdom: "Stonegate", general: "Doran", army: 70000 },
+//         { kingdom: "YorkenShire", general: "Quinn", army: 0 },
+//         { kingdom: "YorkenShire", general: "Quinn", army: 2000 } ],
+//     [ ["YorkenShire", "Quinn", "Stonegate", "Doran"],
+//         ["Stonegate", "Ulric", "Maiden Way", "Merek"] ]
+// )
