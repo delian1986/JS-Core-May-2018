@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06. Extract Parenthesis</title>
+</head>
+<body>
+<p id="content">
+    Greek ouzo (from grape) and tsipouro (from pomace), Turkish rakı (from sun dried grapes) and arak in Lebanon and Levant region differ from rakia as they are redistilled with some herbs (commonly anise). Some tsipouro in Greece is made without anise in the same manner as pomace rakia (or pomace brandy). "Boğma rakı" in Turkey (common name of the domestic raki which is produced at homes and villages) is similar to rakia in the Balkans.
+</p>
+
+<script>
+    //https://forum.tutorials7.com/2149/extract-parenthesis-task-in-html-with-dom-and-javascript
+    function extract(elementId) {
+        let text=document.getElementById(elementId).textContent;
+        let pattern=/(\(.*?\))/gm;
+        let match=pattern.exec(text);
+        let result=[];
+
+        while (match){
+            result.push(match[1]);
+            match = pattern.exec(text);
+        }
+        return result.join(';');
+
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03. Collect List</title>
+</head>
+<body>
+<ul id="items">
+    <li>first item</li>
+    <li>second item</li>
+    <li>third item</li>
+</ul>
+<textarea id="result"></textarea>
+<br>
+<button onclick="extractText()">Extract Text</button>
+<script>
+    function extractText() {
+        let listArray=document.getElementsByTagName("LI");
+        for (let i = 0; i < listArray.length; i++) {
+            document.getElementById("result").innerHTML+=listArray[i].innerHTML+'\n';
+
+        }
+    }
+</script>
+
+</body>
+</html>
