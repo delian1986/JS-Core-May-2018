@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search in List</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+</head>
+<body>
+<ul id="towns">
+    <li>Sofia</li>
+    <li>Pleven</li>
+    <li>Varna</li>
+    <li>Plovdiv</li>
+</ul>
+<input type="text" id="searchText" />
+<button onclick="search()">Search</button>
+<div id="result"></div>
+
+<script>
+    function search() {
+        let list=$("li");
+        let word=$("#searchText").val();
+        let counter=0;
+        // console.log(word);
+        list.each(function () {
+            if($(this).text().includes(word)){
+                $(this).wrap('<strong>');
+                counter++;
+            }else{
+                $(this).unwrap();
+
+            }
+        });
+        $("#result").text(`${counter} matches found.`);
+    }
+
+
+
+</script>
+</body>
+</html>
