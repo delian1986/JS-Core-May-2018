@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fill Dropdown</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Dropdown Menu</h1>
+<div>
+    <select id="menu"></select>
+</div>
+<label for="newItemText">Text: </label><input type="text" id="newItemText" />
+<label for="newItemValue">Value: </label><input type="text" id="newItemValue" />
+<input type="button" value="Add" onclick="addItem()">
+
+<script>
+    function addItem() {
+        let text=$("#newItemText").val();
+        let value=$("#newItemValue").val();
+        let dropdown=$("#menu");
+
+        dropdown.append($("<option />").val(value).text(text));
+        $("#newItemText").val('');
+        $("#newItemValue").val('');
+
+    }
+</script>
+</body>
+</html>

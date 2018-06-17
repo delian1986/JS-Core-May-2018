@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Converter</title>
+    <style>
+        label, input {
+            display: inline-block;
+            width: 5em;
+        }
+
+        label {
+            text-align: right;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body onload="attachEventsListeners()">
+<h1>Time Converter</h1>
+<div>
+    <label for="days">Days: </label>
+    <input type="text" id="days">
+    <input id="daysBtn" type="button" value="Convert">
+</div>
+<div>
+    <label for="hours">Hours: </label>
+    <input type="text" id="hours">
+    <input id="hoursBtn" type="button" value="Convert">
+</div>
+<div>
+    <label for="minutes">Minutes: </label>
+    <input type="text" id="minutes">
+    <input id="minutesBtn" type="button" value="Convert">
+</div>
+<div>
+    <label for="seconds">Seconds: </label>
+    <input type="text" id="seconds">
+    <input id="secondsBtn" type="button" value="Convert">
+</div>
+
+<script>
+    function attachEventsListeners() {
+        $("#daysBtn").on("click", daysConvert);
+        $("#hoursBtn").on("click", hoursConvert);
+        $("#minutesBtn").on("click", minsConvert);
+        $("#secondsBtn").on("click", secsConvert);
+
+        function daysConvert() {
+            let days = Number($("#days").val());
+            $("#hours").val(days * 24);
+            $("#minutes").val(days*24*60);
+            $("#seconds").val(days*24*60*60);
+        }
+
+        function hoursConvert() {
+            let hours=Number($("#hours").val());
+
+            $("#days").val(hours/24);
+            $("#minutes").val(hours*60);
+            $("#seconds").val(hours*60*60);
+        }
+        
+        function minsConvert() {
+            let mins=Number($("#minutes").val());
+
+            $("#days").val(mins/24/60);
+            $("#hours").val(mins/60);
+            $("#seconds").val(mins*60);
+
+        }
+        
+        function secsConvert() {
+            let secs=Number($("#seconds").val());
+
+            $("#days").val(secs/24/60/60);
+            $("#hours").val(secs/60/60);
+            $("#minutes").val(secs/60);
+
+        }
+    }
+
+</script>
+</body>
+</html>

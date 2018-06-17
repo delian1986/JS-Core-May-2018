@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Distance Converter</title>
+    <style>
+        label, input {
+            display: inline-block;
+            width: 5em;
+        }
+
+        label {
+            text-align: right;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body onload="attachEventsListeners()">
+<h1>Distance Converter</h1>
+<div>
+    <label for="inputDistance">From:</label>
+    <input type="text" id="inputDistance">
+    <select id="inputUnits">
+        <option value="km">Kilometers</option>
+        <option value="m">Meters</option>
+        <option value="cm">Centimeters</option>
+        <option value="mm">Millimeters</option>
+        <option value="mi">Miles</option>
+        <option value="yrd">Yards</option>
+        <option value="ft">Feet</option>
+        <option value="in">Inches</option>
+    </select>
+    <input type="button" id="convert" value="Convert">
+</div>
+<div>
+    <label for="outputDistance">To:</label>
+    <input type="text" id="outputDistance" disabled="disabled">
+    <select id="outputUnits">
+        <option value="km">Kilometers</option>
+        <option value="m">Meters</option>
+        <option value="cm">Centimeters</option>
+        <option value="mm">Millimeters</option>
+        <option value="mi">Miles</option>
+        <option value="yrd">Yards</option>
+        <option value="ft">Feet</option>
+        <option value="in">Inches</option>
+    </select>
+</div>
+
+<script>
+    function attachEventsListeners() {
+        $("#convert").on("click", function () {
+                let inputDistance = Number($("#inputDistance").val());
+                let inputUnits = $("#inputUnits option:selected").text();
+                let outputUnits = $("#outputUnits option:selected").text();
+
+                let kmToMet = 1000;
+                let mToMet = 1;
+                let cmToMet = 0.01;
+                let mmToMet = 0.001;
+                let miToMet = 1609.34;
+                let yrToMet = 0.9144;
+                let ftToMet = 0.3048;
+                let inchToMet = 0.0254;
+
+                let outputMeters = "";
+
+
+                if (inputUnits === "Kilometers") {
+                    outputMeters = inputDistance * kmToMet;
+                } else if (inputUnits === "Meters") {
+                    outputMeters = inputDistance * mToMet;
+                } else if (inputUnits === "Centimeters") {
+                    outputMeters = inputDistance * cmToMet;
+                } else if (inputUnits === "Millimeters") {
+                    outputMeters = inputDistance * mmToMet;
+                } else if (inputUnits === "Miles") {
+                    outputMeters = inputDistance * miToMet;
+                } else if (inputUnits === "Yards") {
+                    outputMeters = inputDistance * yrToMet;
+                } else if (inputUnits === "Feet") {
+                    outputMeters = inputDistance * ftToMet;
+                } else if (inputUnits === "Inches") {
+                    outputMeters = inputDistance * inchToMet;
+                }
+
+                if (outputUnits === "Kilometers") {
+                    $("#outputDistance").val(outputMeters / kmToMet);
+                } else if (outputUnits === "Meters") {
+                    $("#outputDistance").val(outputMeters / mToMet);
+                } else if (outputUnits === "Centimeters") {
+                    $("#outputDistance").val(outputMeters / cmToMet);
+                }else if (outputUnits === "Millimeters") {
+                    $("#outputDistance").val(outputMeters / mmToMet);
+                }else if (outputUnits === "Miles") {
+                    $("#outputDistance").val(outputMeters / miToMet);
+                }else if (outputUnits === "Yards") {
+                    $("#outputDistance").val(outputMeters / yrToMet);
+                }else if (outputUnits === "Feet") {
+                    $("#outputDistance").val(outputMeters / ftToMet);
+                }else if (outputUnits === "Inches") {
+                    $("#outputDistance").val(outputMeters / inchToMet);
+                }
+            }
+        )
+    }
+
+</script>
+</body>
+</html>
