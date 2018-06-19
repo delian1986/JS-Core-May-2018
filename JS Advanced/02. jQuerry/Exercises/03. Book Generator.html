@@ -11,20 +11,50 @@
 <div id="wrapper">
 
 </div>
-<script src="book-generator.js"></script>
 <script>
     window.onload = function () {
         createBook("#wrapper", "Alice in Wonderland", "Lewis Carroll", 1111);
-
     };
 
-    function createBook(selector) {
-        let fragment=document.createDocumentFragment();
-        
+    function createBook(selector, bookTitle, authorTitle, isbn) {
 
-        for (let selectorElement of selector) {
+        let bookGenerator = (function () {
+            let id = 1;
+            return function (selector, bookTitle, authorTitle, isbn) {
+                //main selector
+                let container = $(`${selector}`);
 
-        }
+                //bookContainer
+                let bookContainer = $('<div>');
+                bookContainer.attr('id', `book${id}`);
+                bookContainer.css('border', 'none');
+                //addind paras
+                $(`<p class="title">${bookTitle}</p>`).appendTo(bookContainer);
+                $(`<p class="author">${authorTitle}</p>`).appendTo(bookContainer);
+                $(`<p class="isbn">${isbn}</p>`).appendTo(bookContainer);
+                //buttons
+                let selectBtn = $('<button>Select</button>');
+                let deselectBtn = $('<button>Deselect</button>');
+                //adding functionality to the btns
+                deselectBtn.on("click",()=>{
+                   bookContainer.css("border","none")
+                });
+                selectBtn.on("click", () => {
+                    bookContainer.css("border", "2px solid blue")
+                });
+                //appending btns to div id=book{id}
+                selectBtn.appendTo(bookContainer);
+                deselectBtn.appendTo(bookContainer);
+
+                //appending div book{id} to main div container
+                bookContainer.appendTo(container);
+
+
+                //increment book id
+                id++;
+            };
+        }());
+        bookGenerator(selector, bookTitle, authorTitle, isbn);
     }
 
 </script>

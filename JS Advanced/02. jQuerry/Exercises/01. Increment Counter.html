@@ -11,47 +11,35 @@
 <div id="wrapper">
 </div>
 <script>
-    window.onload = function(){
+    window.onload = function () {
         increment("#wrapper");
     };
 
     function increment(selector) {
-        let container=$(selector);
-        let fragment = document.createDocumentFragment();
-        let textArea=$('<textArea>');
-        let incrementBtn=$('<button>Increment</button>');
-        let addBtn=$('<button>Add</button>');
-        let list=$('<ul>');
-
-        //Textarea formation
-        textArea.val(0);
+        let container = $(selector);
+        let textArea = $('<textArea>');
         textArea.addClass('counter');
-        textArea.attr('disabled',true);
+        textArea.attr('disabled', 'true');
+        textArea.val(0);
 
-        //Buttons formation
-        incrementBtn.addClass('btn');
-        incrementBtn.attr('id','incrementBtn');
-        addBtn.addClass('btn');
-        addBtn.attr('id', 'addBtn');
+        textArea.appendTo(container);
+        let list=$('<ul class="results">');
 
-        //List formation
-        list.addClass('result');
+        $('<button class="btn" id="incrementBtn">Increment</button>').click(incrementer)
+            .appendTo(container);
+        $('<button class="btn" id="addBtn">Add</button>').click(adder)
+            .appendTo(container);
 
-        //Events
-        $(incrementBtn).click(function () {
+        list.appendTo(container);
+
+        function incrementer() {
             textArea.val(+textArea.val()+1);
-        });
-        $(addBtn).click(function () {
+        }
+
+        function adder() {
             let li=$(`<li>${textArea.val()}</li>`);
             li.appendTo(list);
-        });
-
-        textArea.appendTo(fragment);
-        incrementBtn.appendTo(fragment);
-        addBtn.appendTo(fragment);
-        list.appendTo(fragment);
-
-        container.append(fragment);
+        }
     }
 </script>
 </body>
