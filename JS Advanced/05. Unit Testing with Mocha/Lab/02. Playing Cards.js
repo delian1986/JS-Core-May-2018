@@ -7,11 +7,11 @@ function makeCard(face, suit) {
         C: '\u2663'
     };
     if((faces.filter(e => e === face).length===0)){
-      throw 'Error';
+        throw new Error('Error');
     }
 
     if (!suits.hasOwnProperty(suit)){
-        throw "Error";
+        throw new Error('Error');
     }
 
     return face+suits[suit]
