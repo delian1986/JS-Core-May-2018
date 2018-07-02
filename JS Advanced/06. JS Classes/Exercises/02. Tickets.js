@@ -15,14 +15,7 @@ function tickets(arr, criteria) {
         allTickets.push(ticket)
     }
 
-    switch (criteria){
-        case 'destination':allTickets.sort((a,b)=>a.destination.localeCompare(b.destination));
-            break;
-        case 'price': allTickets.sort((a,b)=>a.price-b.price);
-            break;
-        case 'status':allTickets.sort((a,b)=>a.status.localeCompare(b.status));
-        break
-    }
+    allTickets.sort((a, b) => a[criteria] > b[criteria])
     return allTickets;
 }
 
