@@ -1,4 +1,4 @@
-function tickets(arr, criteria) {
+function tickets(inputArray, criteria) {
     class Ticket {
         constructor(destination,price,status){
             this.destination=destination;
@@ -9,9 +9,9 @@ function tickets(arr, criteria) {
 
     let allTickets=[];
 
-    for (let row of arr) {
-        let args=row.split('|');
-        let ticket=new Ticket(args[0],Number(args[1]),args[2]);
+    for (let row of inputArray) {
+        let [destination,price,status]=row.split('|');
+        let ticket=new Ticket(destination,Number(price),status);
         allTickets.push(ticket)
     }
 
