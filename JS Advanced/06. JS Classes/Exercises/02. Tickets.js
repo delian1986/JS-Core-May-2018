@@ -15,8 +15,7 @@ function tickets(arr, criteria) {
         allTickets.push(ticket)
     }
 
-    allTickets.sort((a, b) => a[criteria] > b[criteria])
-    return allTickets;
+    return allTickets.sort((a, b) => a[criteria] > b[criteria]);
 }
 
 let result=tickets(['Philadelphia|94.20|available',
