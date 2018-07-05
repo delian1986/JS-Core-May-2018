@@ -1,3 +1,5 @@
+//80/100
+
 class PaymentPackage {
     constructor(name, value) {
         this.name = name;
