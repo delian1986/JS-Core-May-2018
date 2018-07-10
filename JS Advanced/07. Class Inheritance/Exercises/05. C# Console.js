@@ -51,53 +51,38 @@ let Console=class Console {
 
 
 
-describe('C# Console Unit Tests', function () {
-    it('writeLine is a functions', function () {
-        expect(typeof Console.writeLine).to.equal('function');
+describe("class Console static writeLine", function () {
+    it("should return the same string for single string argument", function () {
+        let string = "One single string";
+        expect(Console.writeLine(string)).to.equal(string);
     });
-    it('writeLine correct output with string', function () {
-        Console.writeLine('test');
-        expect(Console.writeLine('test')).to.equal('test');
+    it("should return JSON string for single object argument", function () {
+        let object = {name: "Pesho", age: 32};
+        expect(Console.writeLine(object)).to.equal(JSON.stringify(object))
     });
-    it('writeLine correct output with object', function () {
-        let testObj={key:'value'};
-        let expectedOutput=JSON.stringify(testObj);
-        expect(Console.writeLine(testObj)).to.equal(expectedOutput);
+    it("should throw error if no arguments were given", function () {
+        expect(() => Console.writeLine()).to.throw(TypeError);
     });
-    it('writeLine correct TypeError with !string', function () {
-        expect(()=>Console.writeLine(Function).to.throw(TypeError));
+    it("should throw error if first argument is not string", function () {
+        expect(() => Console.writeLine(5, 1, 2)).to.throw(TypeError)
     });
-    it('writeLine incorrect amount of variables', function () {
-        let string="My {0} is {1}. I want to say {3}";
-        expect(()=>Console.writeLine(string).to.throw(RangeError));
+    it("should throw error if placeholders are less than arguments", function () {
+        let string = "This {0} should {1} replaced.";
+        expect(() => Console.writeLine(string, "one", "be", "three")).to.throw(RangeError);
     });
-    it('writeLine correct amount of variables', function () {
-        let string='String should, be correct - now';
-        expect(Console.writeLine('String {1}, {0} {2} - {3}', 'be', 'should', 'correct', 'now')).to.equal(string);
+    it("should throw error if place of placeholders is changed", function () {
+        let string = "This {0} should {0} replaced.";
+        expect(() => Console.writeLine(string, "one", "be")).to.throw(RangeError);
     });
-    it('writeLine empty string', function () {
-        expect(()=>Console.writeLine().to.throw(TypeError));
+    it("should successfully replace placeholders with valid arguments", function () {
+        let string = "This {0} should {1} replaced.";
+        expect(Console.writeLine(string, "one", "be")).to.equal("This one should be replaced.");
     });
-    it('writeLine incorrect placeholders', function () {
-
-        expect(()=>Console.writeLine('{0},{12}','Pesho','Gosho').to.throw(TypeError));
+    it("should throw error if invalid placeholder is given", function () {
+        let string = "This {0} should {1} replaced. This one {2} not work.";
+        expect(() => Console.writeLine(string, "one", "be")).to.throw(RangeError);
     });
-    it('writeLine incorrect placeholders', function () {
-
-        expect(()=>Console.writeLine('{0},{1}','Pesho','Gosho','Stamat').to.throw(RangeError));
+    it("should recognize the placeholder numbers well", function () {
+        expect(() => Console.writeLine("Not {10}", "valid")).to.throw(RangeError);
     });
-    it('should replace correctly one placeholder', () => {
-        expect(Console.writeLine('{0}', 'first')).to.equal('first');
-    });
-    it('should replace correctly all placeholders', () => {
-        expect(Console.writeLine('Test {0}, {1} {2} - {3}', 'first', 'second', 'third', 'chetvyrti')).to.equal('Test first, second third - chetvyrti');
-    });
-    it('should throw RangeError on negative placeholder index', () => {
-        expect(() => Console.writeLine('Test {-5}, {1} {2}', 'first', 'second', 'third')).to.throw(RangeError);
-    });
-    it('should return undefined on non-string argument', () => {
-        let res = Console.writeLine(123);
-        expect(res).to.equal(undefined);
-    });
-
-})
+});
