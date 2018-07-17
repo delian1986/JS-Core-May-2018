@@ -1,5 +1,3 @@
-//90/100
-
 class BookCollection {
     constructor(shelfGenre, room, shelfCapacity) {
         this.shelfGenre = shelfGenre;
