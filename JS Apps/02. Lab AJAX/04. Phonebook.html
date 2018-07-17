@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phonebook</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+<h1>Phonebook</h1>
+<ul id="phonebook"></ul>
+<button id="btnLoad">Load</button>
+<h2>Create Contact</h2>
+Person: <input type="text" id="person"/>
+<br>
+Phone: <input type="text" id="phone"/>
+<br>
+<button id="btnCreate">Create</button>
+<script>
+    const baseUrl = 'https://phonebook-1c42f.firebaseio.com/';
+    $('#btnLoad').on('click', loadPhonebook);
+    $('#btnCreate').on('click', createContact);
+
+    function createContact() {
+        let name = $('#person').val();
+        let number = $('#phone').val();
+
+        $.ajax({
+            method: "POST",
+            url: baseUrl + '.json',
+            data: JSON.stringify({name, number})
+        }).then(loadPhonebook)
+            .catch(displayError)
+    }
+
+    function loadPhonebook() {
+        $('#phonebook').empty();
+        $('#person').val('');
+        $('#phone').val('');
+        
+        $.ajax({
+            method: "GET",
+            url: baseUrl + ".json"
+        })
+            .then(retrivePhonebook)
+            .catch(displayError);
+    }
+
+    function retrivePhonebook(contacts) {
+        for (let key in contacts) {
+            let name = contacts[key]['name'];
+            let number = contacts[key]['number'];
+            let li = $(`<li>`).text(`${name}: ${number} `);
+            let delBtn = $(`<a href=#>[Delete]</a>`);
+            delBtn.on('click', function () {
+                $.ajax({
+                    method: 'DELETE',
+                    url: baseUrl + '/' + key + '.json'
+                }).then(loadPhonebook).catch(displayError)
+
+            });
+            li.append(delBtn);
+            $('#phonebook').append(li)
+
+        }
+
+    }
+
+    function displayError(err) {
+        $('#phonebook').append($('<li>').text("Error"));
+    }
+
+</script>
+</body>
+</html>
