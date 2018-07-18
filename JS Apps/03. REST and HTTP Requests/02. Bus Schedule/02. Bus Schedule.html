@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Schedule</title>
+    <style>
+        #schedule { text-align: center; width: 400px; }
+        input { width: 120px; }
+        #info { background-color:aquamarine; border:1px solid black; margin:0.25em; }
+        .info { font-size: 1.5em; padding: 0.25em; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<div id="schedule">
+    <div id="info"><span class="info">Not Connected</span></div>
+    <div id="controls">
+        <input id="depart" value="Depart" type="button" onclick="result.depart()">
+        <input id="arrive" value="Arrive" type="button" onclick="result.arrive()" disabled="true">
+    </div>
+</div>
+<script>
+    function solve() {
+        const baseUrl='https://judgetests.firebaseio.com/schedule/';
+        let currStop='';
+        let nextStop='';
+        let departBtn=$('#depart');
+        let arriveBtn=$('#arrive');
+
+        function depart(){
+            if (nextStop===''){
+                nextStop='depot'
+            }
+            $.ajax({
+                method:'GET',
+                url:baseUrl+nextStop+'.json'
+            }).then(stopInfo).catch(errorInfo)
+
+        }
+
+        function stopInfo(stop) {
+            currStop=stop.name;
+            arriveBtn.prop('disabled',false);
+            departBtn.prop('disabled',true);
+            nextStop=stop['next'];
+            $('#info>.info').text(`Next Stop ${currStop}`)
+        }
+
+        function errorInfo() {
+            $('#info>.info').text('Error');
+            arriveBtn.prop('disabled',true);
+            departBtn.prop('disabled',true);
+
+        }
+        
+        function arrive() {
+            $('#info>.info').text(`Arriving at ${currStop}`);
+            arriveBtn.prop('disabled',true);
+            departBtn.prop('disabled',false);
+        }
+        return {
+            depart,
+            arrive
+        };
+    }
+    let result = solve();
+</script>
+</body>
+</html>
