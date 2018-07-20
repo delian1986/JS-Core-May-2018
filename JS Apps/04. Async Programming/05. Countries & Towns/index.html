@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Countries and Towns</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <style>
+        input {
+            display: block
+        }
+
+        div {
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Select Country</h1>
+<button id="btnLoadCountries">Load Countries</button>
+<select id="countries"></select>
+<button id="btnViewTowns">View Towns</button>
+<h1 id="country-name" style="display: none">Country</h1>
+<h2 id="town-name" style="display: none">Towns</h2>
+<div id="town-names"></div>
+<div id="addTown" style="display: none">
+    <h3>Add new town</h3>
+    <input id="addNewTown" type="text"/>
+    <button id="addNewTownBtn">Add Town</button>
+</div>
+<div id="addNewCountryField">
+    <h1>Add new Country</h1>
+    <input id="newCountry" type="text"/>
+    <div id="townsList">
+        <h3>Add towns to that country</h3>
+        <input type="text"/>
+    </div>
+        <button id="createNewBtn">Add Country with Towns to DB</button>
+        <button id="moreTowns">Add More Towns To Add</button>
+</div>
+<script src="solution.js"></script>
+<script>
+    attachEvents();
+</script>
+</body>
+</html>
