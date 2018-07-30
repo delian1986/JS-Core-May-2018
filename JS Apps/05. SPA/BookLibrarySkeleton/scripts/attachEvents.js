@@ -21,7 +21,13 @@ function attachAllEvents() {
 
     // Attach AJAX "loading" event listener
     $(document).on({
-        ajaxStart: function() { $("#loadingBox").show() },
-        ajaxStop: function() { $("#loadingBox").hide() }
-    })
+        ajaxStart: function () {
+            $("input").prop('disabled', true);
+            $('#loadingBox').show()
+        },
+        ajaxStop: function () {
+            $('#loadingBox').hide();
+            $("input").prop('disabled', false);
+        }
+    });
 }

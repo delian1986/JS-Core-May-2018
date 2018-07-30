@@ -1,5 +1,5 @@
 function startApp() {
-    showHideMenuLinks()
-    showView('viewHome')
+    showHideMenuLinks();
+    showView('viewHome');
     attachAllEvents()
 }
