@@ -65,6 +65,11 @@ main > section {
     padding: 10px;
 }
 
+.adTableImg{
+    width:80px;
+    height: auto;
+}
+
 .form{
     margin: 0 auto;
     background: #333333;

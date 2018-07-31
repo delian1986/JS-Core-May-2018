@@ -17,7 +17,7 @@ function attachAllEvents() {
     // Bind the info / error boxes
     $("#infoBox, #errorBox").on('click', function() {
         $(this).fadeOut()
-    })
+    });
 
     // Attach AJAX "loading" event listener
     $(document).on({

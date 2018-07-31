@@ -19,6 +19,8 @@ function showListAdverts() {
 
 function showCreateAdvert() {
     $('#formCreateAd').trigger('reset');
+    $('#formCreateAd input[name=datePublished]').val(getDate()).prop('disabled',true);
+
     showView('viewCreateAd')
 
 }
@@ -60,4 +62,8 @@ function showError(errorMsg) {
     let errorBox = $('#errorBox');
     errorBox.text("Error: " + errorMsg);
     errorBox.show()
+}
+
+function getDate() {
+    return new Date().toISOString().slice(0, 10);
 }
