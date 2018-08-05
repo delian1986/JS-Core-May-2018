@@ -21,7 +21,8 @@ let teamsService = (() => {
     function createTeam(name, comment) {
         let teamData = {
             name: name,
-            comment: comment
+            comment: comment,
+            author: sessionStorage.getItem('username')
         };
 
         return requester.post('appdata', 'teams', 'kinvey', teamData);
@@ -43,7 +44,7 @@ let teamsService = (() => {
             teamId: ''
         };
 
-       return requester.update('user', sessionStorage.getItem('userId'), userData, 'kinvey');
+        return requester.update('user', sessionStorage.getItem('userId'), userData, 'kinvey');
     }
 
 
