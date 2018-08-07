@@ -1,5 +1,6 @@
 {{>header}}
 <div class="content">
+    {{>navigation}}
     <section id="viewComments">
         <div class="post">
             <div class="col thumbnail">
@@ -16,12 +17,14 @@
                 <div class="details">
                     <p>Very helpful and complete info. Even includes a detailed tutorial.</p>
                     <div class="info">
-                        submitted 5 days ago by pesho
+                        submitted {{time}} by {{author}}
                     </div>
                     <div class="controls">
                         <ul>
+                            {{#if isAuthor}}
                             <li class="action"><a class="editLink" href="#">edit</a></li>
                             <li class="action"><a class="deleteLink" href="#">delete</a></li>
+                            {{/if}}
                         </ul>
                     </div>
 

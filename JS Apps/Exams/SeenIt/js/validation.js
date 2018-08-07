@@ -9,10 +9,10 @@ let validator=(()=>{
         return (usernameRegex.test(username) && passwordRegex.test(password) && password === repeatPassword)
     }
     
-    function createPostValidator(url,title,imageUrl,content) {
+    function createPostValidator(url,title) {
         let isTitleValid=false;
         let isUrlValid=false;
-        let isImageUrlValid=false;
+        // let isImageUrlValid=false;
 
 
         if (title===''){
@@ -28,17 +28,17 @@ let validator=(()=>{
         }else{
             notify.showError('URL should start with http');
         }
-        if (imageUrl!==''){
-            if (imageUrl.substr(0,4)==='http'){
-                isImageUrlValid=true
-            }else{
-                notify.showError('Image URL should start with http');
-            }
-        }else{
-            isImageUrlValid=true
-        }
+        // if (imageUrl!==''){
+        //     if (imageUrl.substr(0,4)==='http'){
+        //         isImageUrlValid=true
+        //     }else{
+        //         notify.showError('Image URL should start with http');
+        //     }
+        // }else{
+        //     isImageUrlValid=true
+        // }
 
-        return isTitleValid&&isImageUrlValid&&isUrlValid;
+        return isTitleValid&&isUrlValid;
     }
     return{
         loginValidator,
