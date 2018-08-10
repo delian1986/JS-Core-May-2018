@@ -1,0 +1,13 @@
+<div class="row">
+    <input type="hidden" value="{{entryId}}">
+    <div class="col wide">{{type}}</div>
+    <div class="col wide">{{qty}}</div>
+    <div class="col wide">{{price}}</div>
+    <div class="col">{{subTotal}}</div>
+    <div class="col right">
+        <form action="#/deleteEntry" method="post">
+            <input type="hidden" name="entryId" value="{{_id}}">
+            <input type="submit" value="&#10006;">
+        </form>
+    </div>
+</div>
