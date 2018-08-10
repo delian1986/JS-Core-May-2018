@@ -1,0 +1,11 @@
+<tr>
+    <td>{{recepientUser}}</td>
+    <td>{{text}}</td>
+    <td>{{date}}</td>
+    <td>
+        <form action="#/deleteMessage" method="post">
+            <input type="hidden" name="messageId" value="{{messageId}}">
+        <button type="submit">Delete</button>
+        </form>
+    </td>
+</tr>
