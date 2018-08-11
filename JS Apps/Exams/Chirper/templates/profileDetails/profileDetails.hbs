@@ -1,0 +1,25 @@
+{{>header}}
+{{>menu}}
+<section id="viewProfile">
+    <div class="content">
+        <div class="chirper">
+
+            <h2 class="titlebar">{{user}}</h2>
+            <form action="#/follow" method="post">
+                <input type="hidden" name="id" value="{{userId}}">
+                <input type="submit" id="btnFollow" class="chirp-author" value="Follow">
+            </form>
+
+            <div id="userProfileStats" class="user-details">
+                <span>{{chimpsCreated}} chirps</span> | <span>{{following}} following</span> | <span>{{followers}}
+                followers</span>
+            </div>
+        </div>
+        <div id="profileChirps" class="chirps"><h2 class="titlebar">Chirps</h2>
+            {{#each chirps}}
+                {{>mainPageChirp}}
+            {{/each}}
+        </div>
+    </div>
+</section>
+{{>footer}}
