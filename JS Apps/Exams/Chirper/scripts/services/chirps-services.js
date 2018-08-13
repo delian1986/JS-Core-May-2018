@@ -48,23 +48,12 @@ let chirpsServices=(()=>{
         return remote.get('user','','kinvey')
     }
 
-    function follow(newUserToAdd) {
-        const subs=JSON.parse(sessionStorage.getItem('subs'));
-        subs.push(newUserToAdd);
-        const data={"subscriptions":JSON.stringify(subs)};
-        sessionStorage.setItem('subs',JSON.stringify(subs));
-        const userId=sessionStorage.getItem('userId');
+    function modifyUser(userId, newSubs) {
+        let newUser = {
+            subscriptions: newSubs
+        };
 
-        return remote.update('user',userId,'kinvey',data)
-    }
-
-    function unfollow(userToRemove) {
-        const subs=JSON.parse(sessionStorage.getItem('subs'));
-        subs.filter(u=>u!==userToRemove);
-        const data={"subscriptions":JSON.stringify(subs)};
-        const userId=sessionStorage.getItem('userId');
-        return remote.update('user',userId,'kinvey',data)
-
+        return remote.update('user', userId, 'kinvey', newUser)
     }
 
 
@@ -77,10 +66,6 @@ let chirpsServices=(()=>{
         countFollowing,
         countFollowers,
         discoverPage,
-        follow,
-        unfollow
-
-
-
+        modifyUser
     }
 })();

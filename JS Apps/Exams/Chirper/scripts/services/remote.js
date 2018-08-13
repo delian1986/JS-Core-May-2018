@@ -21,7 +21,7 @@ let remote = (() => {
             method: method,
             headers: {
                 'Authorization': makeAuth(auth),
-                'Content-Type': 'application/json'
+                'Content-type': 'application/json'
             }
         }
     }

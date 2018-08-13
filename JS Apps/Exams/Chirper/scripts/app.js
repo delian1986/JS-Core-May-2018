@@ -35,10 +35,11 @@ $(()=>{
         this.get('#/discover',handlers.discover);
 
         //user details
-        this.get('#/user/:id',handlers.userDetails);
+        this.get('#/user/:username',handlers.userDetails);
 
         //follow
-        this.post('#/follow',handlers.followUser)
+        this.get('#/follow/:user',handlers.followUser);
+        this.get('#/unfollow/:user', handlers.unfollowUser);
 
     }).run()
 

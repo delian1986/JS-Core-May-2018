@@ -53,6 +53,12 @@ let auth = (() => {
         notify.showError(reason.responseJSON.description);
     }
 
+    function loadUserByUsername(username) {
+        let endpoint = `?query={"username":"${username}"}`;
+
+        return remote.get('user', endpoint, 'kinvey');
+    }
+
     return {
         login,
         register,
@@ -60,7 +66,8 @@ let auth = (() => {
         saveSession,
         handleError,
         isAuth,
-        userDetails
+        userDetails,
+        loadUserByUsername
 
     }
 })();

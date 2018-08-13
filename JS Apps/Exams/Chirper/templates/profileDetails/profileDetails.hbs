@@ -5,11 +5,11 @@
         <div class="chirper">
 
             <h2 class="titlebar">{{user}}</h2>
-            <form action="#/follow" method="post">
-                <input type="hidden" name="id" value="{{userId}}">
-                <input type="submit" id="btnFollow" class="chirp-author" value="Follow">
-            </form>
-
+            {{#if isFollowed}}
+                <a id="btnFollow" class="chirp-author" href="#/unfollow/{{user}}">Unfollow</a>
+            {{else}}
+                <a id="btnFollow" class="chirp-author" href="#/follow/{{user}}">Follow</a>
+            {{/if}}
             <div id="userProfileStats" class="user-details">
                 <span>{{chimpsCreated}} chirps</span> | <span>{{following}} following</span> | <span>{{followers}}
                 followers</span>

@@ -112,8 +112,15 @@ handlers.discover = async function (ctx) {
     });
 
     ctx.users.forEach((u)=>{
+        try {
 
-        u.userFollowers=u.subscriptions.length
+        console.log(JSON.parse(u.subscriptions).length);
+        u.userFollowers=JSON.parse(u.subscriptions).length
+        }catch  {
+            // console.log(JSON.parse(u.subscriptions).length);
+            u.userFollowers=0
+
+        }
     });
 
     ctx.loadPartials({
@@ -127,18 +134,21 @@ handlers.discover = async function (ctx) {
 };
 
 handlers.userDetails=async function (ctx) {
-    let userId=ctx.params.id;
-    ctx.userId=userId;
-    let details=await auth.userDetails(userId);
+    let username=ctx.params.username;
+    // ctx.userId=userId;
+    let [details]=await auth.loadUserByUsername(username);
+
     console.log(details);
     ctx.user=details.username;
     let chirpsCreated=await chirpsServices.countChirps(details.username);
     let following=await chirpsServices.countFollowing(details.username);
-    console.log(chirpsCreated);
     ctx.chirps=chirpsCreated;
     ctx.chimpsCreated=chirpsCreated.length;
-    ctx.followers=JSON.parse(details.subscriptions).length;
+    console.log(details.subscriptions);
+    ctx.followers=details.subscriptions.length;
+
     ctx.following=following.length;
+    ctx.isFollowed = JSON.parse(sessionStorage.getItem('subs')).includes(details.username);
     ctx.loadPartials({
         header: 'templates/common/header.hbs',
         footer: 'templates/common/footer.hbs',
@@ -150,12 +160,31 @@ handlers.userDetails=async function (ctx) {
 };
 
 handlers.followUser= async function (ctx) {
-    let user=ctx.params.user;
-    let userId=ctx.params.userId;
-    chirpsServices.follow(user)
-        .then(function () {
-            notify.showInfo(`Subscribed to ${user}`);
+    let username = ctx.params.user;
+    console.log(username);
+    let userId = sessionStorage.getItem('userId');
+    let newSubArr = JSON.parse(sessionStorage.getItem('subs')).splice(0); // Create a copy of arr
+    newSubArr.push(username);
+    chirpsServices.modifyUser(userId, newSubArr)
+        .then(() => {
+            notify.showInfo(`Subscribed to ${username}`);
+            sessionStorage.setItem('subs', JSON.stringify(newSubArr));
+            ctx.redirect(`#/user/${username}`);
+        }).catch(notify.handleError);
+};
 
-            ctx.redirect(`#/user/${userId}`)
-        })
+
+handlers.unfollowUser=function (ctx) {
+    let username = ctx.params.user;
+    let userId = sessionStorage.getItem('userId');
+    let newSubArr = JSON.parse(sessionStorage.getItem('subs'));
+    let indexOfEl = newSubArr.indexOf(username);
+    newSubArr.splice(indexOfEl, 1);
+
+    chirpsServices.modifyUser(userId, newSubArr)
+        .then(() => {
+            notify.showInfo(`Unsubscribed to ${username}`);
+            sessionStorage.setItem('subs', JSON.stringify(newSubArr));
+            ctx.redirect(`#/user/${username}`);
+        }).catch(notify.handleError);
 };
