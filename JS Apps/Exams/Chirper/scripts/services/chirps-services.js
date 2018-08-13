@@ -9,7 +9,7 @@ let chirpsServices=(()=>{
     function createChirp(text,author) {
         const data={text,author};
 
-        return remote.post('appdata','chirps','kinvey',data)
+        return remote.post('appdata','chirps','kinvey',JSON.stringify(data))
     }
     
     function deleteChirp(chirpId) {

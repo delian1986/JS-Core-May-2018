@@ -8,7 +8,7 @@ handlers.getFeed = async function (ctx) {
 
     let chirps = await chirpsServices.listAllChirpsFromSubs();
     let userChirps = await chirpsServices.countChirps(ctx.username);
-    let userFollowing = await chirpsServices.countFollowing(ctx.username);
+    let [userFollowing] = await chirpsServices.countFollowing(ctx.username).catch(notify.handleError);
     let userFollowers = await chirpsServices.countFollowers(ctx.username);
 
     console.log(userFollowing);
@@ -20,7 +20,7 @@ handlers.getFeed = async function (ctx) {
         ctx.text = c.text
     });
     ctx.userChirps = userChirps.length;
-    ctx.userFollowing = JSON.parse(userFollowing[0].subscriptions).length;
+    ctx.userFollowing =userFollowing.subscriptions.length;
     ctx.userFollowers = userFollowers.length;
 
 
@@ -112,6 +112,7 @@ handlers.discover = async function (ctx) {
     });
 
     ctx.users.forEach((u)=>{
+
         u.userFollowers=u.subscriptions.length
     });
 
@@ -131,12 +132,12 @@ handlers.userDetails=async function (ctx) {
     let details=await auth.userDetails(userId);
     console.log(details);
     ctx.user=details.username;
-    ctx.followers=details.subscriptions.length;
     let chirpsCreated=await chirpsServices.countChirps(details.username);
     let following=await chirpsServices.countFollowing(details.username);
     console.log(chirpsCreated);
     ctx.chirps=chirpsCreated;
     ctx.chimpsCreated=chirpsCreated.length;
+    ctx.followers=JSON.parse(details.subscriptions).length;
     ctx.following=following.length;
     ctx.loadPartials({
         header: 'templates/common/header.hbs',
