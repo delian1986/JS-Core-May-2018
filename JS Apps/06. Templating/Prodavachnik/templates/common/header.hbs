@@ -1,0 +1,12 @@
+<header id="menu" class="menu">
+    <a href="#/home" id="linkHome" class="menu-item">Home</a>
+    {{#if isAnonimous}}
+        <a href="#/loginView" id="linkLogin" class="menu-item">Login</a>
+        <a href="#/registerView" id="linkRegister" class="menu-item">Register</a>
+    {{else}}
+        <a href="#/listAds" id="linkListAds" class="menu-item">List Advertisements</a>
+        <a href="#/createAd" id="linkCreateAd" class="menu-item">Create Advertisement</a>
+        <a href="#/logout" id="linkLogout" class="menu-item">Logout</a>
+        <span id="loggedInUser" class="menu-item">Welcome, {{username}}!</span>
+    {{/if}}
+</header>

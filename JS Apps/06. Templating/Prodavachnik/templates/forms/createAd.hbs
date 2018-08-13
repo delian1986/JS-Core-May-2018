@@ -1,0 +1,23 @@
+{{>header}}
+
+<section id="viewCreateAd" class="viewCreateAd">
+    <h1 class="titleForm">Create new Advertisement</h1>
+    <form  action="#/create" method="post" id="formCreateAd" class="form">
+        <div>Title:</div>
+        <div><input type="text" name="title" required/></div>
+        <div>Description:</div>
+        <div><textarea name="description" rows="10" required></textarea></div>
+
+        <div>Price:</div>
+        <div><input type="number" step="0.01" name="price" required/></div>
+        <div>Image:</div>
+        <div><input type="text" name="imageUrl" required/></div>
+        <div><button type="submit" class="loginbtn">Create</button></div>
+
+    </form>
+</section>
+<script>
+    //fill date input with date today
+    $('#viewCreateAd input[type=date]').val(getDate()).prop('disabled',true);
+</script>
+{{>footer}}
