@@ -1,3 +1,5 @@
+//Exam Chirper solved. All functionality are working but still have some bugs. Need refactor.
+
 const handlers={};
 
 $(()=>{
