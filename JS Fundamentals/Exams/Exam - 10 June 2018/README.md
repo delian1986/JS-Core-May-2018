@@ -1,6 +1,7 @@
-#JS Fundamentals Exam - 10 June 2018
+# JS Fundamentals Exam - 10 June 2018
+test your solution here https://judge.softuni.bg/Contests/1066/JS-Fundamentals-Exam-10-June-2018
 
-# 1.Problem 1 – Travel Plans
+# Problem 1 – Travel Plans
 
 _Mariyka really wishes to go on a world trip, but so far she&#39;s never had the chance and so she finally decided to give it a try. But as beginning she need to collect some money, right?_
 
@@ -154,7 +155,7 @@ The second part is to **decode**** the numbers **from the** input string **. To 
 | [&quot;1&quot;, &quot;4&quot;,&quot;loveni&quot;, &quot;SerbiA 67 – sDf1d17ia aTe 1, 108 confin$4%#ed likewise it humanity  Bulg35aria - VarnA railLery1a0s1 111 an unpacked as 109 he&quot;] | Slovenia =\&gt; Lom |
 
 
-# 1.Problem 4 – Travel Time
+# Problem 4 – Travel Time
 
 _It&#39;s finally time for Mariyka__ь_ _to organize her traveling plans. So far we already know that she wishes to go on a world trip and she already collected some money and made some useful research for the traveling destinations. To organize her plans and travel route she need your great help. So, let&#39;s begin….._
 
