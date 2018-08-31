@@ -79,11 +79,11 @@ function makeReservation(target) {
         selectMenu.append($('<option value="creditCard">Credit Card</option>'));
         selectMenu.append($('<option value="bankTransfer">Bank Transfer</option>'));
 
-
+        //appending drop-down list and details section div
         container.append(selectMenu);
         container.append($('<div>').attr('id', 'extraDetails'));
+        //drop-down event
         selectMenu.on('change', payments);
-
 
         function payments() {
             let method = ($(this).val());
