@@ -1,41 +1,41 @@
-function bitcoinMinning(goldIncome) {
-    //console.log(goldIncome);
-
-    let allLeva = 0.0;
-    let bitcoins = 0.0;
-    let bitcoinPrice=11949.16;
-    let goldToLeva=67.51;
-    let firstTime=0;
-
-    for (let i = 1; i <= goldIncome.length; i++) {
-        let dailyIncome = parseInt(goldIncome[i-1])*goldToLeva;
-        if (i/3>0 && i%3==0) {
-            dailyIncome*=0.7;
-
+function bitcoinMining(array) {
+    let bitcoin = 11949.16;
+    let gold = 67.51;
+    let totalSum = 0;
+    let day = 0;
+    let firstDay = 0
+    let boughtBitcoin = 0;
+    let countBitcoin = 0;
+    let sumBitcoins = 0;
+ 
+ 
+    for (let index = 0; index < array.length; index++) {
+        day++;
+        let element = array[index];
+        if (day % 3 == 0) {
+            element = element * 0.7;
         }
-        let dailyLeva=0;
-        dailyLeva += dailyIncome;
-        allLeva+=dailyLeva;
-
-
-        if (allLeva>=bitcoinPrice){
-            let coinsBouth=Math.floor(allLeva/bitcoinPrice);
-            bitcoins+=coinsBouth;
-            allLeva-=coinsBouth*bitcoinPrice;
-
-            if (firstTime==0){
-                firstTime=i;
-            }
-            //console.log(coinsBouth);
+        let singleDayEarning = element * gold;
+        totalSum += singleDayEarning;
+ 
+ 
+        if (totalSum >= bitcoin) {
+            countBitcoin++;
+            boughtBitcoin = Math.floor(totalSum / bitcoin);
+            totalSum = totalSum - (bitcoin * boughtBitcoin);
+            sumBitcoins += boughtBitcoin;
+        }
+        if (countBitcoin == 1) {
+            firstDay = day;
         }
     }
-    console.log(`Bought bitcoins: ${bitcoins}`);
-    if(firstTime>0){
-        console.log(`Day of the first purchased bitcoin: ${firstTime}`);
+ 
+    console.log(`Bought bitcoins: ${sumBitcoins}`);
+    if (firstDay != 0) {
+        console.log(`Day of the first purchased bitcoin: ${firstDay}`);
     }
-    console.log(`Left money: ${allLeva.toFixed(2)} lv.`);
-
-
+    console.log(`Left money: ${totalSum.toFixed(2)} lv.`);
+ 
 }
 //
 // bitcoinMinning(['100',
