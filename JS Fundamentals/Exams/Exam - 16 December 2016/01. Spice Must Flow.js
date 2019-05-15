@@ -1,20 +1,19 @@
-function spiceMustFlow(mine) {
-    let spice = Number(mine[0]);
-    let days = 0;
-    let collectedSpices = 0;
+function spiceMustFlow(currentYield) {
+    currentYield = Number(currentYield);
+    let harvest = 0;
+    let daysCount = 0;
 
-    while (spice >= 100) {
-        collectedSpices += spice - 26;
-        days++;
-        spice -= 10;
+    while (currentYield >= 100){
+        harvest += currentYield;
+        daysCount++;
+        currentYield -= 10;
+        harvest -= 26;
     }
 
-    console.log(days);
-    if (collectedSpices >= 26) {
-        console.log(collectedSpices - 26);
-    }else{
-        console.log(0);
+    if(daysCount > 0){
+        harvest -= 26;
     }
+
+    console.log(daysCount);
+    console.log(harvest);
 }
-
-spiceMustFlow([200]);
