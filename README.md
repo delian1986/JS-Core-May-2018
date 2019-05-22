@@ -1,7 +1,7 @@
 <!--Making the header in center + pargraf--->
 # <p align="center">JS Core May 2018<p>
 
-<a href="https://softuni.bg/trainings/courses" rel="Courses">  ![SoftUni logo][logo] <a/>
+<a href="https://softuni.bg/modules/26/js-core" rel="Courses">  ![SoftUni logo][logo] <a/>
 
 [logo]: http://innovationstarterbox.bg/wp-content/uploads/2016/05/Softuni_logo_trasparent.png "Logo Title Text 2"
 
