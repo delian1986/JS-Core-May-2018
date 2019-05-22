@@ -11,6 +11,6 @@
 
 |    Course    |    Certificate                                    | 
 |-------------|----------------------------------------------|
-|    <p><a href="https://github.com/delian1986/SoftUni-C-Sharp-repo/tree/master/Programming%20Basics"><b>Programming Basics Course Solutions</b></a><p>       |  <p><a href="https://softuni.bg/certificates/details/17732/7cb720b5"><b>Link</b></a></p>   |
+|    <p><a href="https://github.com/delian1986/JS-Core-May-2018/tree/master/JS%20Fundamentals"><b>JS Fundamentals</b></a><p>       |  <p><a href="https://softuni.bg/certificates/details/17732/7cb720b5"><b>Link</b></a></p>   |
 |    <p> <a href="https://github.com/delian1986/JS-Core-May-2018/tree/master/JS%20Advanced"><b>JS Advanced</b></a></p>     |    <p><a href="https://softuni.bg/certificates/certificates/converttoimage/56139?code=14344d5a"><b>Link</b></a></p>                     |
 |    <p> <a href="https://github.com/delian1986/JS-Core-May-2018/tree/master/JS%20Apps"><b>JS Applications</b></a></p>    |    <p><a href="https://softuni.bg/certificates/certificates/converttoimage/57281?code=69362517"><b>Link</b></a></p>   | 
